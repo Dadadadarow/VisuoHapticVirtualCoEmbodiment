@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class BarTransformSynchronizer : MonoBehaviour
+public class BarTransformSynchronizer : NetworkBehaviour
 {
     [SyncVar] public float height;
     [SyncVar] public float tiltAngle;
