@@ -20,20 +20,8 @@ public class BarTransformSynchronizer : NetworkBehaviour
         initialRotation = transform.rotation;
     }
 
-    private void Update()
-    {
-        // 位置と回転の計算をFixedUpdate内に移動
-        tiltAngle = -Mathf.Atan2(_synchronizeTarget_left.position.y - _synchronizeTarget_right.position.y, 1.1f) * Mathf.Rad2Deg;
-        height = (_synchronizeTarget_left.position.y + _synchronizeTarget_right.position.y) / 2;
-    }
     private void FixedUpdate()
     {
-
-        // 常にx座標は0
-        Vector3 newPosition = new Vector3(0f, height, 0.3f);
-        transform.position = newPosition;
-        transform.rotation = Quaternion.Euler(0f, 0f, tiltAngle) * initialRotation;
-
         TransmitTransform();
     }
 
@@ -51,5 +39,16 @@ public class BarTransformSynchronizer : NetworkBehaviour
             height = syncHeight;
             tiltAngle = syncTiltAngle;
         }
+    }
+
+    void Update()
+    {
+        tiltAngle = -Mathf.Atan2(_synchronizeTarget_left.position.y - _synchronizeTarget_right.position.y, 1.1f) * Mathf.Rad2Deg;
+        height = (_synchronizeTarget_left.position.y + _synchronizeTarget_right.position.y) / 2;
+
+        // 常にx座標は0
+        Vector3 newPosition = new Vector3(0, height, transform.position.z);
+        transform.position = newPosition;
+        transform.rotation = Quaternion.Euler(0, 0, tiltAngle) * initialRotation;
     }
 }
