@@ -47,7 +47,7 @@ public class BarTransformSynchronizer : NetworkBehaviour
         height = (_synchronizeTarget_left.position.y + _synchronizeTarget_right.position.y) / 2;
 
         // 常にx座標は0
-        Vector3 newPosition = new Vector3(0, height, transform.position.z);
+        Vector3 newPosition = new Vector3(0, height, 0);
         transform.position = newPosition;
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle) * initialRotation;
     }
