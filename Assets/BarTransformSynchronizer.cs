@@ -21,7 +21,8 @@ public class BarTransformSynchronizer : NetworkBehaviour
         tiltAngle = -Mathf.Atan2(_synchronizeTarget_left.position.y - _synchronizeTarget_right.position.y, 1.1f) * Mathf.Rad2Deg;
         height = (_synchronizeTarget_left.position.y + _synchronizeTarget_right.position.y) / 2;
 
-        this.transform.position = new Vector3(this.transform.position.x, height, this.transform.position.z);
+        this.transform.position = new Vector3(0, height, this.transform.position.z);
+        // 常にx座標は0
         this.transform.rotation = Quaternion.Euler(0, 0, tiltAngle) * initialRotation;
     }
 }
