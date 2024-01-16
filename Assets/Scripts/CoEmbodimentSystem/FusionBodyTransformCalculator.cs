@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace CoEmbodimentSystem
 {
@@ -8,6 +9,7 @@ namespace CoEmbodimentSystem
     {
         private Transform _hostIkTarget;
         private Transform _clientIkTarget;
+        public Vector3 _hostForceTarget;
 
         [SerializeField] private FusionWeightController _fusionWeightController;
 
@@ -18,9 +20,28 @@ namespace CoEmbodimentSystem
         private bool _isFirstFrame = true;
 
         [SerializeField] private BodyPart _bodyPart;
-        public BodyPart ThisBodyPart { get { return _bodyPart; } }
+        public BodyPart ThisBodyPart { get { return _bodyPart; }}
 
         private bool _isFusionStarted;
+
+        // SomatoShiftの固定IP
+        public string IP = "192.168.8.49";
+
+        public float sendValueRight = 10f;
+        public float sendValueLeft = 10f;
+        public float sendValueGainRight = 0f;
+        public float sendValueGainLeft = 0f;
+        // public double sendValue = 0;
+        public string Address = "/bind/values";
+        public int Port = 9000;
+        private float time;
+        private float lastSendTime = 0;
+        // private double maxAbs = 0;
+
+        void Start()
+        {
+            // client = new OscClient(IP, Port);
+        }
 
         // Update is called once per frame
         void Update()
@@ -94,6 +115,24 @@ namespace CoEmbodimentSystem
                 }
 
                 _previousRotation = this.transform.rotation;
+            }
+
+            if (_bodyPart == BodyPart.RightHand)
+            {
+                time += Time.deltaTime;
+                // 前回送信から0.0025秒以上経過していたらメッセージを送る（400Hz）
+                _hostForceTarget = this.transform.position - _clientIkTarget.position;
+                sendValueRight = _hostForceTarget.y;
+                sendValueGainRight = _hostForceTarget.magnitude;
+            }
+
+            if (_bodyPart == BodyPart.LeftHand)
+            {
+                time += Time.deltaTime;
+                // 前回送信から0.0025秒以上経過していたらメッセージを送る（400Hz）
+                _hostForceTarget = this.transform.position - _clientIkTarget.position;
+                sendValueLeft = _hostForceTarget.y;
+                sendValueGainLeft = _hostForceTarget.magnitude;
             }
         }
 

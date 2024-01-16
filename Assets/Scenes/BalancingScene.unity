@@ -156,6 +156,7 @@ Transform:
   - {fileID: 1610878894}
   - {fileID: 277171469}
   - {fileID: 328930203}
+  - {fileID: 1725403084}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -735,7 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0.02
   respawnPoint: {fileID: 138612535}
 --- !u!1 &705507993
 GameObject:
@@ -1828,6 +1829,53 @@ MonoBehaviour:
     useMainPaint: 1
     useNormalPaint: 0
     useHeightPaint: 0
+--- !u!1 &1725403083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725403084}
+  - component: {fileID: 1725403085}
+  m_Layer: 0
+  m_Name: HapticManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1725403084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725403083}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 20055162}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725403085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725403083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03b0f93f5c721947b623fa703510956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fusionDataRight: {fileID: 1888750609}
+  fusionDataLeft: {fileID: 1740483113}
+  hapticOpt: 1
+  vibrationGain: 1
 --- !u!1 &1736023725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,8 +1999,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37fcfce131bc4ddbb1c107e3a6ab583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hostForceTarget: {x: 0, y: 0, z: 0}
   _fusionWeightController: {fileID: 1610878895}
   _bodyPart: 1
+  IP: 192.168.8.49
+  sendValueRight: 10
+  sendValueLeft: 10
+  sendValueGainRight: 0
+  sendValueGainLeft: 0
+  Address: /bind/values
+  Port: 9000
 --- !u!114 &1740483114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,8 +2161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37fcfce131bc4ddbb1c107e3a6ab583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hostForceTarget: {x: 0, y: 0, z: 0}
   _fusionWeightController: {fileID: 1610878895}
   _bodyPart: 2
+  IP: 192.168.8.49
+  sendValueRight: 10
+  sendValueLeft: 10
+  sendValueGainRight: 0
+  sendValueGainLeft: 0
+  Address: /bind/values
+  Port: 9000
 --- !u!114 &1888750610
 MonoBehaviour:
   m_ObjectHideFlags: 0
