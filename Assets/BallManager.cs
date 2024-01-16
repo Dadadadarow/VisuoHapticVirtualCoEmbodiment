@@ -9,6 +9,9 @@ public class BallManager : NetworkBehaviour
 {
     [SerializeField] private Transform respawnPoint;
 
+    [SyncVar] private Vector3 syncPosition;
+    [SyncVar] private Quaternion syncRotation;
+
     // Start is called before the first frame update
     public void Reset()
     {
@@ -17,18 +20,6 @@ public class BallManager : NetworkBehaviour
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
         rb.isKinematic = false;
-
-        // サーバー側でReset()が呼び出された場合、クライアント側でもReset()を呼び出す
-        if (isServer)
-        {
-            RpcReset();
-        }
-    }
-
-    [ClientRpc]
-    private void RpcReset()
-    {
-        Reset();
     }
 
     void Start()
@@ -47,6 +38,20 @@ public class BallManager : NetworkBehaviour
 
     void FixedUpdate()
     {
-        // 位置の同期を行わないため、この部分を削除
+        TransmitTransform();
+    }
+
+    private void TransmitTransform()
+    {
+        if (isServer)
+        {
+            syncPosition = transform.position;
+            syncRotation = transform.rotation;
+        }
+        else if (isClient)
+        {
+            transform.position = syncPosition;
+            transform.rotation = syncRotation;
+        }
     }
 }
